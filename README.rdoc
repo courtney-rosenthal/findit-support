@@ -1,0 +1,27 @@
+= FindIt Support
+
+This package contains miscellaneous functions and classes to support
+the "Find It Nearby" application.
+
+The "Find It Nearby" app finds closest features on a map using a
+geospatial database. The original application was forked several times
+into various projects. Unfortunately, it was difficult to setup and
+the forked versions diverged, with no simple way to backport improvements.
+
+To solve this problem, I created this package to contain the GIS support
+and classes for managing some of the objects commonly used in these
+applications (such as locations on a map or marker icons).
+
+This package provides:
+
+* Enhancements to the Sequel database toolkit to add "spatialite" support.
+
+* A FindIt::Location class that provides extremely lightweight support for
+  map locations (latitude/longitude).
+  
+* Various classes to represent "assets" managed by the application, including
+  map markers (icons that represent a point on the map) and map regions (shaded
+  areas that represent a polygon region on the map).
+  
+Chip Rosenthal
+chip@unicom.com 

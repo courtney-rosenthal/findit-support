@@ -1,6 +1,6 @@
-require_relative "image"
-require_relative "map-marker"
-require_relative "map-region"
+require_relative './asset/image.rb'
+require_relative './asset/map-marker.rb'
+require_relative './asset/map-region.rb'
 
 module FindIt
   

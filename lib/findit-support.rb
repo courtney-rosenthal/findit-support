@@ -1,3 +1,3 @@
-require_relative 'findit-support/sequel'
-require_erlative 'findit/location'
-require_relative 'findit/asset'
+require_relative './findit-support/database.rb'
+require_relative './findit-support/location.rb'
+require_relative './findit-support/asset.rb'

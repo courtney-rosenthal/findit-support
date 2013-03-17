@@ -67,6 +67,17 @@ module FindIt
     def lng
       @longitude_deg
     end
+    
+    def to_h(type = :DEG)
+      case type
+      when :DEG
+        {:latitude => @latitude_deg, :longitude => @longitude_deg}
+      when :RAD
+        {:latitude => @latitude_rad, :longitude => @longitude_rad}
+      else
+        raise "unknown coordinate type \"#{type}\""
+      end
+    end
   
     # Earth mean radius, in miles.
     EARTH_R = 3963.0 

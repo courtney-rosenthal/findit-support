@@ -51,7 +51,7 @@ describe FindIt::Location do
     context "with lat/lng specified with unrecognized units" do
       it "raises an exception" do
         expect do
-          FindIt::Location.new(SAMPLE_LAT_DEG, SAMPLE_LNG_DEG, :FOO)      
+          FindIt::Location.new(SAMPLE_LAT_DEG, SAMPLE_LNG_DEG, :FAIL)      
         end.to raise_error(RuntimeError)
       end
     end
@@ -81,6 +81,43 @@ describe FindIt::Location do
       loc.lng.should be_within(DELTA_DEGREES).of(SAMPLE_LNG_DEG)
     end    
   end
+  
+  
+  describe ".to_h" do    
+
+    # Pick object constructed in target units, to avoid floating point errors.
+    locd = FindIt::Location.new(SAMPLE_LAT_DEG, SAMPLE_LNG_DEG, :DEG)
+    locr = FindIt::Location.new(SAMPLE_LAT_RAD, SAMPLE_LNG_RAD, :RAD)
+    
+    context "coordinate type :DEG" do
+      it "returns location in degrees in a hash" do
+        locd.to_h(:DEG).should eq({:latitude => SAMPLE_LAT_DEG, :longitude => SAMPLE_LNG_DEG})
+      end
+    end
+
+    context "no coordinate type specified" do
+      it "returns location in degrees in a hash" do
+        locd.to_h.should eq({:latitude => SAMPLE_LAT_DEG, :longitude => SAMPLE_LNG_DEG})
+      end
+    end
+    
+
+    context "coordinate type :RAD" do
+      it "returns location in radians in a hash" do
+        locr.to_h(:RAD).should eq({:latitude => SAMPLE_LAT_RAD, :longitude => SAMPLE_LNG_RAD})
+      end
+    end
+    
+    context "bad coordinate type specified" do
+      it "raises an exception" do
+        expect do
+          locd.to_h(:FAIL)
+        end.to raise_error(RuntimeError)
+      end
+    end    
+    
+  end
+
   
   describe "distance" do
     

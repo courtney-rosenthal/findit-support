@@ -1,3 +1,5 @@
 .buildpath
 .project
+html
+pkg
 Gemfile.lock

@@ -22,6 +22,42 @@ This package provides:
 * Various classes to represent "assets" managed by the application, including
   map markers (icons that represent a point on the map) and map regions (shaded
   areas that represent a polygon region on the map).
+
+== Spatialite Support
+
+The home page for Spatialite is: http://www.gaia-gis.it/gaia-sins/
+
+=== Debian
+
+The _libspatialite2_ package on Debian "squeeze" (currently the "stable" version)
+is incredibly old. So I've been building "libspatialite" from source. The
+included README describes the process.
+
+I obtained the PROJ.4 library by running:
+
+  # apt-get install libproj0 libproj-dev
   
+I had to download and build the GEOS and FreeXL from source.
+
+=== Ubuntu
+
+Ubuntu has a _libspatialite3_ library that can be used.
+
+  # apt-get install libspatialite3
+  
+There is one problem, however: the package does not create a "libspatialite.so"
+entry. You can create the entry manually by doing:
+
+  # ln -s libspatialite.so.3 /usr/lib/libspatialite.so
+
+Alternately, you can define SPATIALITE in your environment before
+running a program that uses this package.
+
+  $ export SPATIALITE=libspatialite.so.3
+
+== Author
+
 Chip Rosenthal
 chip@unicom.com 
+
+This package is published at: https://github.com/chip-rosenthal/findit-support

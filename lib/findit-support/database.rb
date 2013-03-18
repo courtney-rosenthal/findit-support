@@ -2,9 +2,6 @@ require "sequel"
 
 module Sequel
   
-  # Default spatialite extension library module load file.
-  SPATIALITE_EXTENSION_LIBRARY = "libspatialite.so"
-  
   # Connect to a Spatialite database.
   #
   # Arguments are the same as to Sequel::sqlite
@@ -13,20 +10,23 @@ module Sequel
   # extensions loaded.
   #
   # Additional options:
-  #
   # [:spatialite]
-  #   Module to load for spatialiate extensions,
-  #   instead of default.
+  #   Module to load for spatialiate extensions.
+  #
+  # The Spatialite module (shared library file) is determined, in order:
+  # * The value specified for the :spatialite option, if any.
+  # * The value specified by the SPATIALITE environment setting, if any.
+  # * libspatialite.so
   #
   # Example:
   #
-  #   db = Sequel.spatialite("example.db", :spatialite => "/usr/local/lib/libspatialite.so.3")
+  #   db = Sequel.spatialite("example.db", :spatialite => "libspatialite.so.3")
   #
   def self.spatialite(database, opts = {})
     opts[:after_connect]||= proc {|db| db.enable_load_extension(true)}
     db = Sequel.sqlite(database, opts)
     
-    db.get{load_extension(opts[:spatialite] || SPATIALITE_EXTENSION_LIBRARY)}
+    db.get{load_extension(opts[:spatialite] || ENV["SPATIALITE"] || "libspatialite.so")}
 
     def db.spatialite_version
       self.get{spatialite_version{}}

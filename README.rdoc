@@ -55,6 +55,29 @@ running a program that uses this package.
 
   $ export SPATIALITE=libspatialite.so.3
 
+=== Mac OS
+
+The following information is derived from: http://atxcivichack3.wikispaces.com/findit+on+mac
+
+Mac's default sqlite3 does not have R*Tree enabled so can not load extensions. This is how to work around this issue.
+
+Assumption, you are using Homebrew: https://github.com/mxcl/homebrew
+
+  brew reinstall sqlite3 --with-rtree --with-docs --with-fts --with-functions
+
+The output will contain something like:
+
+  LDFLAGS: -L/usr/local/opt/sqlite/lib
+  CPPFLAGS: -I/usr/local/opt/sqlite/include
+
+You now need to use these paths when installing the sqlite3 gem:
+
+  gem install sqlite3 -- --with-sqlite3-include=/usr/local/opt/sqlite/include --with-sqlite3-lib=/usr/local/opt/sqlite/lib
+
+Then you need to specify the path to the libspatialite library when you run the application:
+
+  SPATIALITE=/usr/local/lib/libspatialite.dylib prog ...
+
 == Author
 
 Chip Rosenthal

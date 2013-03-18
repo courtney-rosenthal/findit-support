@@ -3,7 +3,7 @@ require "sequel"
 module Sequel
   
   # Default spatialite extension library module load file.
-  SPATIALITE_EXTENSION_LIBRARY = "libspatialite.so.3"
+  SPATIALITE_EXTENSION_LIBRARY = "libspatialite.so"
   
   # Connect to a Spatialite database.
   #

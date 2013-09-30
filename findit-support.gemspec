@@ -21,9 +21,9 @@ Gem::Specification.new do |spec|
   
   spec.files = Dir["lib/**/*.rb"] + spec.test_files + spec.extra_rdoc_files
   
-  spec.add_dependency("sequel", ">= 3.45.0")
-  spec.add_dependency("sqlite3", ">= 1.3.7")
-  spec.add_dependency("json_pure", ">= 1.7.7")  
+  spec.add_dependency("sequel", "~> 3.45.0")
+  spec.add_dependency("sqlite3", "~> 1.3.7")
+  spec.add_dependency("json_pure", "~> 1.7.7")  
   
   spec.add_development_dependency('rspec')
 end

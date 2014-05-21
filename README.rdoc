@@ -80,7 +80,16 @@ You now need to use these paths when installing the sqlite3 gem:
 
   gem install sqlite3 -- --with-sqlite3-include=/usr/local/opt/sqlite/include --with-sqlite3-lib=/usr/local/opt/sqlite/lib
 
-Then you need to specify the path to the libspatialite library when you run the application:
+If installation of the sqlite3 gem fails with:
+
+  The compiler failed to generate an executable file. (RuntimeError)
+  You have to install development tools first.
+
+...and you know you have already installed development tools, then see http://stackoverflow.com/questions/13279856/the-compiler-failed-to-generate-an-executable-file-runtimeerror and run the following:
+
+  brew tap homebrew/dupes ; brew install apple-gcc42
+
+Once the sqlite3 gem is successfully installed, you need to specify the path to the libspatialite library when you run the application:
 
   SPATIALITE=/usr/local/lib/libspatialite.dylib prog ...
 

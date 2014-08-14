@@ -13,7 +13,7 @@ describe Sequel do
   shared_examples "opens_spatialite_database" do |db|
     include_examples "opens_sqlite_database", db
     it "includes spatialite extensions" do
-      db.get{spatialite_version{}}.should match(/^3\./)
+      db.get{spatialite_version{}}.should match(/^[34]\./)
     end
   end
   
@@ -32,7 +32,7 @@ describe Sequel do
     end
     
     context "with spatialite library argument" do
-      db = Sequel.spatialite(EXAMPLE_DATABASE, :spatialite => "libspatialite.so.3")
+      db = Sequel.spatialite(EXAMPLE_DATABASE, :spatialite => "libspatialite.so")
       include_examples "opens_spatialite_database", db
     end
     

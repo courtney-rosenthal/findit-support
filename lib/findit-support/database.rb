@@ -1,5 +1,8 @@
 require "sequel"
 
+# The SRID typically used in spatialite to represent latitude/longitude coordinates.
+SRID_LATLNG = 4326
+
 module Sequel
   
   # Connect to a Spatialite database.

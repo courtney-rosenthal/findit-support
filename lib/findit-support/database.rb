@@ -34,7 +34,35 @@ module Sequel
     
     # This will raise an error if SpatiaLite not loaded correctly.
     db.spatialite_version
-    
+
+    # Return a hash of geometry information for the specified table.
+    # Returns nil if table has no geometry information.
+    # Assumes the table has at most one geometry columns.
+    #
+    def db.geo_info(table)
+      @geo_info_data ||= {}
+      t = table.to_s
+      unless @geo_info_data.has_key?(t)
+        rs = self[:geometry_columns].filter(:f_table_name => t)
+        @geo_info_data[t] = (rs.count == 1 ? rs.first : nil)
+      end
+      return @geo_info_data[t]
+    end
+
+    # Returns the name of the geometry column (as symbol) for this table.
+    # Returns nil if table has no geometry information.
+    #
+    def db.geo_column(table)
+      (info = geo_info(table)) && (val = info[:f_geometry_column]) && val.to_sym
+    end
+
+    # Returns the geospatial coordinate system (SRID) (as int) for this table.
+    # Returns nil if table has no geometry information.
+    #
+    def db.geo_srid(table)
+      (info = geo_info(table)) && (val = info[:srid]) && val.to_i
+    end
+
     db        
   end
   

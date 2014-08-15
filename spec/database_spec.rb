@@ -58,11 +58,46 @@ describe Sequel do
       should eq(db.get{spatialite_version{}})
     end
   end
+
+  describe "#geo_info" do
+    db = Sequel.spatialite(EXAMPLE_DATABASE)
+
+    context "when table has one geometry column" do
+      subject { db.geo_info(EXAMPLE_TABLE) }
+      it "should retrieve geospatial info for table" do
+        should be_a_kind_of(Hash)
+      end
+    end
+
+    context "when invalid table specified" do
+      subject { db.geo_info(:no_such_table) }
+      it "should be nil" do
+        should be_nil
+      end
+    end
+
+  end
+
+  describe "#geo_column" do
+    db = Sequel.spatialite(EXAMPLE_DATABASE)
+    subject { db.geo_column(EXAMPLE_TABLE) }
+    it "should return geometry column name for table" do
+      should eq(:Geometry)
+    end
+  end
+
+  describe "#geo_srid" do
+    db = Sequel.spatialite(EXAMPLE_DATABASE)
+    subject { db.geo_srid(EXAMPLE_TABLE) }
+    it "should return SRID value for table" do
+      should eq(3333)
+    end
+  end
     
   
 end
-
-
+    
+  
 describe Sequel::Dataset do
   
   describe ".fetch_one" do        

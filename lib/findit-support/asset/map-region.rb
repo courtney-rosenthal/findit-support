@@ -13,7 +13,7 @@ module FindIt
       
       def self.from_geojson(regionJSON, opts = {})
         region = JSON.parse(regionJSON)
-        raise "region is not a GeoJSON polygon" unless ["Polygon", "MultiPolygon"].include?("type")
+        raise "region is not a GeoJSON polygon" unless ["Polygon", "MultiPolygon"].include?(region["type"])
         raise "region is missing coordinates list" unless region["coordinates"]
         self.new(region["coordinates"].first, opts)
       end
